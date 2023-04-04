@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div class="container-fluid bg-light mt-5">
+    <form class="d-flex mx-5 pt-5 row">
+        <h3 class="fw-bold fst-italic" *ngIf="loggedUser">Hi <span class="text-success">{{username}},</span> Here are the Latest Movies!!</h3>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-5">
+            <input type="radio" class="btn-check" name="language" (click)="onLanguageChange('')" id="All" checked>
+            <label class="btn btn-outline-success me-3" for="All">All</label>
+            <input type="radio" class="btn-check" name="language" (click)="onLanguageChange('Telugu')" id="Telugu" >
+            <label class="btn btn-outline-success me-3" for="Telugu">Telugu</label>
+            <input type="radio" class="btn-check" name="language" (click)="onLanguageChange('Hindi')" id="Hindi" >
+            <label class="btn btn-outline-success me-3" for="Hindi">Hindi</label>
+            <input type="radio" class="btn-check" name="language" (click)="onLanguageChange('English')" id="English" >
+            <label class="btn btn-outline-success me-3" for="English">English</label>
+        </div>
+        <div class="d-flex col-lg-3">
+            <input type="text" class="form-control me-2" id="search-text" aria-describedby="search-text" 
+            [(ngModel)]="searchText" (input)="performFilter(searchText)" placeholder="Search" name="searchText" autofocus>
+            <button class="btn btn-outline-success"  type="submit" >Search</button>
+        </div>
+        
+    </form>
+    <div class="row mx-4">
+        <div *ngFor="let movie of filteredData"  class="col-md-4 col-sm-6 col-lg-3 p-4 mt-3" id="productCard">
+            <div class="card" opacity="opacity:0.8" (click)="getMovie(movie.id)">
+                <img class="card-img-top" src="{{movie.imageUrl}}" height="200px" alt="{{movie.id}}">
+                <div class="card-body text text-center">
+                    <h3 class="card-title"><i>{{movie.name}}</i></h3>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+<div class=" justify-content-center  m-5">
+    <h3 class=" card shadow justify-content-center m-5 p-5">{{errorMessage}}</h3>
+</div>

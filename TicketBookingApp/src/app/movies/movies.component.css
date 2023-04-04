@@ -1,0 +1,8 @@
+.success-btn.touched{
+    border:2px solid green;
+}
+.card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(3, 185, 33, 0.986), 0 4px 8px rgba(0,0,0,.09);
+   
+}

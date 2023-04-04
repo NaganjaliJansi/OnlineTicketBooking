@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div class="fluid-container row mt-5 pt-5">
+    <div class="col-md-3"></div>
+    <div class="card bg-light m-5 col-md-6 p-5">
+        <div style="text-align:center">
+            <h2 class="fw-bold" style="color:rgb(1, 82, 1)">Hi <span style="color:indigo">{{username}}</span>, Your Tickets for <span class="fst-italic" style="color:indigo">{{movie.name}}</span> has been booked !!</h2>
+            <div class="h3 text-secondary">
+                Your Tickets are : <span *ngFor="let t of tickets" style="color:blueviolet">{{t}} &nbsp;</span>
+            </div>
+            <h3 class="text-warning">
+                Thank You. Have a Good Day !!!
+            </h3>
+            <button class="btn btn-primary p-2 m-2" (click)="backToHome()">Back to Home</button>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>

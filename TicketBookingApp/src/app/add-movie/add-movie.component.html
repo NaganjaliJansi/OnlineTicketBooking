@@ -1,0 +1,69 @@
+<app-header></app-header>
+<div class="fluid-container bg-light mt-5">
+    <div class="row mt-5">
+        <div class="col-md-4 col-sm-12 col-lg-3"></div>
+        <div class="col-md-7 col-sm-12 col-lg-5 mx-5">
+            <form [formGroup]="MovieForm" (ngSubmit)="onSubmit(MovieForm)" class="card mx-5 mt-5 p-5">
+                <div class="text-center mb-3"><h2><b>{{title}}</b></h2></div>
+                <div class="form-group" >
+                    <label for="name"  class="form-label fw-bold">Movie Name :</label>
+                    <input type="text" [(ngModel)]="movie.name" class="form-control form-control-lg"   id="name" formControlName="name" required placeholder="Enter Movie Name.."  minlength="4">
+                </div>
+                <div class="form-group" >
+                    <label for="file"  class="form-label fw-bold">Movie :</label>
+                    <input type="file" class="form-control form-control-lg" accept="image\*" (change)="upload($event)" required  >
+                </div>
+                <div class="form-group" >
+                    <label for="director"  class="form-label fw-bold">Director :</label>
+                    <input type="text" [(ngModel)]="movie.director" class="form-control form-control-lg" formControlName="director"  id="director" (keypress)="alphabetsOnly($event)" required placeholder="Enter Director Name.."  minlength="4">
+                </div>
+                <div class="form-group" >
+                    <label for="director"  class="form-label fw-bold">Actors :</label>
+                    <input type="text" [(ngModel)]="movie.actors" class="form-control form-control-lg" formControlName="actors"  id="actors" (keypress)="alphabetsOnly($event)" required placeholder="Enter Actors here.." minlength="4">
+                </div>
+                <div class="row">
+                    <div class="form-group col-6" >
+                        <label for="language"  class="form-label fw-bold">Language :</label>
+                        <select [(ngModel)]="movie.language" class="form-control form-control-lg" formControlName="language"  id="language" required >
+                            <option value="" disabled selected>Select Language</option>
+                            <option value="Telugu">Telugu</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="English">English</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6" >
+                        <label for="status"  class="form-label fw-bold">Status :</label>
+                        <select [(ngModel)]="movie.status"class="form-control form-control-lg" formControlName="status"  id="status" required >
+                            <option value="" disabled selected>Select status</option>
+                            <option value="true">Available</option>
+                            <option value="false">Not Available</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6" >
+                        <label for="releasedDate"  class="form-label fw-bold">Released Date :</label>
+                        <input type="date" [(ngModel)]="movie.releasedDate" class="form-control form-control-lg" formControlName="releasedDate"  id="releasedDate" required >
+                    </div>
+                    <div class="form-group col-md-6" >
+                        <label for="costForTicket"  class="form-label fw-bold">Ticket Cost :</label>
+                        <input type="text" [(ngModel)]="movie.costForTicket" class="form-control form-control-lg" formControlName="costForTicket" (keypress)="numberOnly($event)" id="costForTicket" required >
+                    </div>
+                </div> 
+                <div class="row  mt-2">
+                    <div class="col-md-6">
+                        <input type="reset" value="Reset" class="btn fw-bold btn-danger float-left  px-3 pe-3">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" value="Submit" class="btn fw-bold btn-success float-right pt-2 px-3 pe-3">
+                    </div>
+                    
+                    
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+

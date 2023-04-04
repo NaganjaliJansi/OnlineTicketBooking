@@ -1,0 +1,90 @@
+<app-header></app-header>
+<div class="fluid-container row mt-5 pt-5">
+    <div class="col-md-3 col-lg-2"></div>
+    <div class="card col-md-8 col-lg-8 m-5 px-5 pt-5">
+        <div class="d-flex row">
+            <div class="image box"  >
+               <img class="rounded mx-auto" src="{{movie.imageUrl}}" alt="{{movie.name}}">
+            </div>
+            <div class="mx -5 justify-content-center">  
+                <table class="mx-5 table table-borderless">
+                    <tr>
+                        <td class="h4 me-2 fw-bold">Name : </td>
+                        <td class="h2 fw-bold fst-italic"> {{movie.name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="h4 me-2 fw-bold">Director: </td>
+                        <td class="h3 fw-bold fst-italic">{{movie.director}}</td>
+                    </tr>
+                    <tr>
+                        <td class="h4 fw-bold">Actors : </td>
+                        <td class="h4 fw-bold fst-italic">{{movie.actors}}</td>
+                    </tr>
+                    <tr>
+                        <td class="h4 fw-bold">Language: </td>
+                        <td class="h4 fw-bold fst-italic">{{movie.language}}</td>
+                    </tr>
+                    <tr>
+                        <td class="h4  fw-bold">Released Date: </td>
+                        <td class="h4 fw-bold fst-italic">{{movie.releasedDate | date }}</td>
+                    </tr>
+                    <tr>
+                        <td class="h4  fw-bold">Cost for Ticket: </td>
+                        <td class="h4 fw-bold fst-italic">{{movie.costForTicket | currency:'INR'}}</td>
+                    </tr>
+                </table>   
+            </div>
+        </div>
+        <div class="mt-3 pb-4">
+            <button class="btn float-left btn-outline-danger" (click)="back()"><b>Go Back</b></button>
+            <button class="btn float-right btn-outline-success" (click)="popup = true"><b>Book Now</b></button>
+        </div>
+    </div>
+</div>
+<div class="overlay mt-4 mx-5" *ngIf="popup">
+	<div class="popup">
+		<h2 class="mx-5">Payment GateWay</h2>
+		<a class="close" (click)="popup = false">&times;</a>
+		<div class="content">
+            <div class="input-group mx-5">
+                <div class=" mx-3 input-group mt-3"> 
+                    <span class="h6 fw-bold">No. of Tickets : </span> &nbsp;&nbsp;
+                    <button style="border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;" class="btn btn-outline-danger" (click)="decreaseValue()" type="button"><b>-</b></button>
+                    <input type="number" disabled style="width: 3em;" id="number" value="1" [(ngModel)]="noOfTickets">
+                    <button class="btn btn-outline-success" (click)="increaseValue()" type="button"><b>+ </b></button>
+                </div>
+            </div><br>
+            <form [formGroup]="paymentForm" class="form-group" (ngSubmit)="payNow()">
+                    <div class="col-md-9 mx-5">
+                        
+                        <input type="email" class="form-control"  id="emailId" placeholder="Enter your Email" name="emailId" formControlName="emailId" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                        <div class="mt-2" *ngIf="paymentForm.controls.emailId.errors && (paymentForm.controls.emailId.dirty || paymentForm.controls.emailId.touched)">
+                            <span class="text-danger" *ngIf="paymentForm.controls.emailId.errors?.required">*Email id is Required!</span>
+                            <span class="text-danger" *ngIf="paymentForm.controls.emailId.errors?.pattern">*Enter a valid Email</span>  
+                            
+                        </div>
+                        <input type="tel" class="form-control mt-2" (keypress)="numberOnly($event)" maxlength="12" required placeholder="Enter your Card Number" fromControlName="cardNumber" name="cardNumber">
+                        <div class="mt-2"  *ngIf="paymentForm.controls.cardNumber.errors && (paymentForm.controls.cardNumber.dirty || paymentForm.controls.cardNumber.touched)">
+                            <span class="text-danger" *ngIf="paymentForm.controls.cardNumber.errors?.required">*Card Number is Required!</span>
+                        </div>
+                        
+                        <div class="row mt-2">
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <input type="month" class="form-control" placeholder="Exp Date"/>
+                                    
+                                    <input type="tel" (keypress)="numberOnly($event)" maxlength="3" class="form-control" placeholder="CVV"/>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="h6 fw-bold"> Total Amount: {{Amount | currency:"INR"}}</span>
+                        <div class="float-center mt-3">
+                            <button class="btn btn-success float-center" type="submit" [disabled]="paymentForm.invalid" >{{Amount | currency:'INR' : 'symbol' : '2.0-2'}} Pay Now</button>
+                         
+                        </div>
+                    </div>
+            </form>
+		</div>
+	</div>
+</div>
